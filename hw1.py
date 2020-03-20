@@ -27,9 +27,12 @@ def poland_cases_by_date(day: int, month: int, year: int = 2020) -> int:
     :param month: Month to get the cases for as an integer indexed from 1
     :return: Number of cases on a given date as an integer
     """
-    
-    # Your code goes here (remove pass)
-    pass
+    if day<=0 or month<=0:
+      return ValueError("Nieprawdiłowa data")
+    dane = f"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv"
+	  df = pd.read_csv(dane, error_bad_lines=False)
+	  result = df.loc[df["Country/Region"]=="Poland"][f"{month}/{day}/20"].values[0]
+	  return result
 
 
 def top5_countries_by_date(day: int, month: int, year: int = 2020) -> List[str]:
